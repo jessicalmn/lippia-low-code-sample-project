@@ -5,7 +5,7 @@ Feature: Add New Project Errors
     And header Content-Type = application/json
     And header Accept = */*
 
-  @InvalidApiKey
+  @InvalidApiKey @AddNewProject
   Scenario: Invalid api Key - Add a new project
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
@@ -14,7 +14,7 @@ Feature: Add New Project Errors
     When execute method POST
     Then the status code should be 401
 
-  @WorkspaceNoExiste
+  @WorkspaceNoExiste @AddNewProject
   Scenario: Agregar proyecto con worskpace invalido - Add a new project
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a0/projects
@@ -23,7 +23,7 @@ Feature: Add New Project Errors
     When execute method POST
     Then the status code should be 403
 
-    @ValidacionLongitud
+    @ValidacionLongitud @AddNewProject
   Scenario: Agregar proyecto con nombre de proyecto con 1 caracter - Add a new project
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
@@ -32,7 +32,7 @@ Feature: Add New Project Errors
     When execute method POST
     Then the status code should be 400
 
-  @ProyectoExistente
+  @ProyectoExistente @AddNewProject
   Scenario: Agregar proyecto con nombre de proyecto ya existente - Add a new project
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
@@ -41,8 +41,8 @@ Feature: Add New Project Errors
     When execute method POST
     Then the status code should be 400
 
-    @RequestIncompleto
-  Scenario: Agregar proyecto con request sin campo obligatorio
+    @RequestIncompleto @AddNewProject
+  Scenario: Agregar proyecto con request sin campo obligatorio - Add a new project
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
     And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2

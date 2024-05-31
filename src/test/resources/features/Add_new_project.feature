@@ -6,7 +6,7 @@ Feature: Project
     And header Content-Type = application/json
     And header Accept = */*
 
-  @addProjectName
+  @addProjectName @AddNewProject
   Scenario: Add a new project Name
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
@@ -14,7 +14,7 @@ Feature: Project
     When execute method POST
     Then the status code should be 201
 
-  @addProjectParameters
+  @addProjectParameters @AddNewProject
   Scenario: Add a new project Parameters
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
@@ -35,4 +35,4 @@ Feature: Project
 
     Examples:
       | nombre_project  | nota          |
-      | "nombreDos"     | "Nota Prueba dos" |
+      | "nombreCinco"     | "Nota Prueba cinco" |

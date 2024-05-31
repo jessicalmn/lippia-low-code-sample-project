@@ -6,7 +6,7 @@ Feature: Find Projects Errors
     And header Accept = */*
 
   @ProjectNoExiste
-  Scenario: Buscar proyecto no existente
+  Scenario: Buscar proyecto no existente - Find project by ID
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects/663c3d872021485a0020bbad
     And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
@@ -44,3 +44,30 @@ Feature: Find Projects Errors
     And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
     When execute method GET
     Then the status code should be 404
+
+  @WorkspaceNoExiste
+  Scenario: Buscar proyecto existente con workspace no existente - Get all projects on workspace
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/662eb17f3c5df5418ad248a4/projects
+    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
+    When execute method GET
+    Then the status code should be 403
+
+  @InvalidApiKey
+  Scenario: Api key invalida - Get all projects on workspace
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects
+    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQmMWI2
+    When execute method GET
+    Then the status code should be 401
+
+  @EndpointInvalido
+  Scenario: Buscar proyecto con endpoint incorrecto - Get all projects on workspace
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspace/662eb17f3c5df5418ad248a3/project
+    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
+    When execute method GET
+    Then the status code should be 404
+
+
+

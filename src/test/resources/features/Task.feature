@@ -17,9 +17,9 @@ Feature: Task
 
     Examples:
       | nombre_task  |
-      | "Tarea para crear"|
-      | "Tarea para buscar"|
-      | "Tarea para Actualizar y eliminar"|
+      | "Tarea 1 para crear"|
+      | "Tarea 2 para buscar"|
+      | "Tarea 3 para Actualizar y eliminar"|
 
   @FindTask
   Scenario: Find tasks on project
@@ -38,6 +38,7 @@ Feature: Task
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects/664a17f4accb3a560e2898e8/tasks/{{idTask2}}
     When execute method GET
     Then the status code should be 200
+    And response should be id = {{idTask2}}
 
   @UpdateTask
   Scenario: Update task on project
@@ -47,6 +48,7 @@ Feature: Task
     And set value "Tarea Actualizacion de estado" of key name in body jsons/bodies/update_task.json
     When execute method PUT
     Then the status code should be 200
+    And response should be id = {{idTask3}}
 
   @DeleteTask
   Scenario: Delete task from project
@@ -55,3 +57,7 @@ Feature: Task
     And endpoint /workspaces/662eb17f3c5df5418ad248a3/projects/664a17f4accb3a560e2898e8/tasks/{{idTask3}}
     When execute method DELETE
     Then the status code should be 200
+    And response should be id = {{idTask3}}
+
+
+

@@ -1,88 +1,67 @@
-@TimeEntriesError @All @Error
-Feature: Time Entries
+@AddTimeEntriesError @All @Error
+Feature: Add Time Entries Error
 
   Background:
     And header Content-Type = application/json
     And header Accept = */*
     * define workspaceId = "662eb17f3c5df5418ad248a3"
-    * define projectId = "664a06cfd4b3fe510d925782"
-    * define taskId = "666393a82cba6f5957b56a8a"
+    * define apikey = "MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2"
 
-  @ApiKeyInvalid @AddTime
-  Scenario Outline: Add a new time entry
+  @ApiKeyInvalid @AddTime @AddTimeApiKeyInvalid
+  Scenario: Add a new time entry - Invalid Api Key
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
     And header x-api-key = AGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
-    And set value <nombre> of key description in body jsons/bodies/add_new_entry.json
-    And set value <inicio> of key start in body jsons/bodies/add_new_entry.json
-    And set value <fin> of key end in body jsons/bodies/add_new_entry.json
-    And set value {{projectId}} of key projectId in body jsons/bodies/add_new_entry.json
-    And set value {{taskId}} of key taskId in body jsons/bodies/add_new_entry.json
+    And body jsons/bodies/add_new_entry_empty.json
     When execute method POST
     Then the status code should be 401
+    And response should be message = "Api key does not exist"
 
-    Examples:
-      | nombre                | inicio                 | fin |
-      | "Hora 1 para crear"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
-
-  @WorkspaceInvalid @AddTime
-  Scenario Outline: Add a new time entry
+  @WorkspaceInvalid @AddTime @AddTimeWorkspaceInvalid
+  Scenario: Add a new time entry  - Workspace Invalid
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/112eb17f3c5df5418ad248a3/time-entries
-    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
-    And set value <nombre> of key description in body jsons/bodies/add_new_entry.json
-    And set value <inicio> of key start in body jsons/bodies/add_new_entry.json
-    And set value <fin> of key end in body jsons/bodies/add_new_entry.json
-    And set value {{projectId}} of key projectId in body jsons/bodies/add_new_entry.json
-    And set value {{taskId}} of key taskId in body jsons/bodies/add_new_entry.json
+    And header x-api-key = {{apikey}}
+    And body jsons/bodies/add_new_entry_empty.json
     When execute method POST
     Then the status code should be 403
+    And response should be message = "Access Denied"
 
-    Examples:
-      | nombre                | inicio                 | fin |
-      | "Hora 1 para crear"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
-
-  @ProjectInvalid @AddTime
-  Scenario Outline: Add a new time entry
+  @ProjectInvalid @AddTime @AddTimeProjectInvalid
+  Scenario: Add a new time entry - Project Invalid
     Given base url https://api.clockify.me/api/v1
-    And endpoint /workspaces/162eb17f3c5df5418ad248a3/time-entries
-    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
-    And set value <nombre> of key description in body jsons/bodies/add_new_entry.json
-    And set value <inicio> of key start in body jsons/bodies/add_new_entry.json
-    And set value <fin> of key end in body jsons/bodies/add_new_entry.json
-    And set value "114a06cfd4b3fe510d925782" of key projectId in body jsons/bodies/add_new_entry.json
-    And set value {{taskId}} of key taskId in body jsons/bodies/add_new_entry.json
-    When execute method POST
-    Then the status code should be 403
-
-    Examples:
-      | nombre                | inicio                 | fin |
-      | "Hora 1 para crear"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
-
-
-  @TaskIdInvalid @AddTime
-  Scenario Outline: Add a new time entry
-    Given base url https://api.clockify.me/api/v1
-    And endpoint /workspaces/162eb17f3c5df5418ad248a3/time-entries
-    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
-    And set value <nombre> of key description in body jsons/bodies/add_new_entry.json
-    And set value <inicio> of key start in body jsons/bodies/add_new_entry.json
-    And set value <fin> of key end in body jsons/bodies/add_new_entry.json
-    And set value {{projectId}} of key projectId in body jsons/bodies/add_new_entry.json
-    And set value "116393a82cba6f5957b56a8a" of key taskId in body jsons/bodies/add_new_entry.json
-    When execute method POST
-    Then the status code should be 403
-
-    Examples:
-      | nombre                | inicio                 | fin |
-      | "Hora 1 para crear"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
-
-  @BadRequest @AddTime
-  Scenario: Bad Request Add a new time entry
-    Given base url https://api.clockify.me/api/v1
-    And endpoint /workspaces/162eb17f3c5df5418ad248a3/time-entries
-    And header x-api-key = MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2
+    And endpoint /workspaces/{{workspaceId}}/time-entries
+    And header x-api-key = {{apikey}}
+    And set value "164a06cfd4b3fe510d925782" of key projectId in body jsons/bodies/add_new_entry.json
     When execute method POST
     Then the status code should be 400
 
+  @TaskIdInvalid @AddTime @AddTimeTaskIdInvalid
+  Scenario: Add a new time entry - Task Id Invalid
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/{{workspaceId}}/time-entries
+    And header x-api-key = {{apikey}}
+    And set value "164a06cfd4b3fe510d925782" of key taskId in body jsons/bodies/add_new_entry.json
+    When execute method POST
+    Then the status code should be 400
+    And response should be message = "Task doesn't belong to Project"
 
+  @BadRequest @AddTime @AddTimeBadRequest
+  Scenario: Add a new time entry - Bad Request
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/{{workspaceId}}/time-entries
+    And header x-api-key = {{apikey}}
+    When execute method POST
+    Then the status code should be 400
+    And response should be message contains "Required request body is missing"
+
+  @EndDateInvalid @AddTime @EndDateProjectInvalid
+  Scenario: Add a new time entry - Date Invalid
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/{{workspaceId}}/time-entries
+    And header x-api-key = {{apikey}}
+    And set value "2024-06-06T09:00:00Z" of key start in body jsons/bodies/add_new_entry.json
+    And set value "2024-06-06T06:00:00Z" of key end in body jsons/bodies/add_new_entry.json
+    When execute method POST
+    Then the status code should be 400
+    And response should be message contains "is greater than end datetime"

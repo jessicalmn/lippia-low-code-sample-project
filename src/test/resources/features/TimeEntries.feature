@@ -56,7 +56,7 @@ Feature: Time Entries
 
 
   @UpdateTime
-  Scenario Outline: Get a specific time entry on workspace
+  Scenario Outline: Update time entry on workspace
     Given call TimeEntries.feature@AddTime
     And base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries/{{idTime}}

@@ -1,4 +1,4 @@
-@TimeEntries
+@TimeEntries @All
 Feature: Time Entries
 
   Background:
@@ -27,6 +27,23 @@ Feature: Time Entries
       | nombre                | inicio                 | fin |
       | "Hora 1 para crear"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
 
+  @AddTimeEmpty
+  Scenario: Add a new time entry
+    Given base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/{{workspaceId}}/time-entries
+    And body jsons/bodies/add_new_entry_empty.json
+    When execute method POST
+    Then the status code should be 201
+    * define idTime = response.id
+
+  @GetTimeInProgress
+  Scenario: Get all in progress time entries on workspace
+    Given call TimeEntries.feature@AddTimeEmpty
+    And base url https://api.clockify.me/api/v1
+    And endpoint /workspaces/{{workspaceId}}/time-entries/{{idTime}}
+    When execute method GET
+    Then the status code should be 200
+    And response should be id = {{idTime}}
 
   @GetTime
   Scenario: Get a specific time entry on workspace

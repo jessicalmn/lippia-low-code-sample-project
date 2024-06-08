@@ -1,4 +1,4 @@
-@GetTimeEntriesError @All @Error
+@GetTimeEntriesError @All @Error GetTimeEntries
 Feature: Get Time Entries Error
 
   Background:
@@ -27,7 +27,7 @@ Feature: Get Time Entries Error
     Then the status code should be 403
      And response should be message = "Access Denied"
 
-  @IdTimeInvalid @GetTime @GetTimeIdTimeInvalid
+  @IdTimeInvalid @GetTimeEntries @GetTimeIdTimeInvalid
   Scenario: Get a specific time entry on workspace - Id Time Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1

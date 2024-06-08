@@ -9,7 +9,7 @@ Feature: Time Entries
     * define projectId = "664a06cfd4b3fe510d925782"
     * define taskId = "666393a82cba6f5957b56a8a"
 
-  @AddTime
+  @FuncionalitiesOK @AddTime @AddTimeComplete
   Scenario Outline: Add a new time entry
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
@@ -27,7 +27,7 @@ Feature: Time Entries
       | nombre                | inicio                 | fin |
       | "Hora 1 para crear"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
 
-  @AddTimeEmpty
+  @FuncionalitiesOK @AddTime @AddTimeEmpty
   Scenario: Add a new time entry
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
@@ -36,7 +36,7 @@ Feature: Time Entries
     Then the status code should be 201
     * define idTime = response.id
 
-  @GetTimeInProgress
+  @FuncionalitiesOK @GetTimeEntries @GetTimeInProgress
   Scenario: Get all in progress time entries on workspace
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -45,7 +45,7 @@ Feature: Time Entries
     Then the status code should be 200
     And response should be id = {{idTime}}
 
-  @GetTime
+  @FuncionalitiesOK  @GetTimeEntries @GetTimeByID
   Scenario: Get a specific time entry on workspace
     Given call TimeEntries.feature@AddTime
     And base url https://api.clockify.me/api/v1
@@ -54,8 +54,7 @@ Feature: Time Entries
     Then the status code should be 200
     And response should be id = {{idTime}}
 
-
-  @UpdateTime
+  @FuncionalitiesOK @UpdateTime @UpdateTimeSuccess
   Scenario Outline: Update time entry on workspace
     Given call TimeEntries.feature@AddTime
     And base url https://api.clockify.me/api/v1
@@ -72,8 +71,7 @@ Feature: Time Entries
       | nombre                | inicio                 | fin |
       | "Hora 1 modificada"   | "2024-06-01T18:00:00Z" | "2024-06-01T18:00:00Z"|
 
-
-  @DeleteTime
+  @FuncionalitiesOK @DeleteTime @DeleteTimeSuccess
   Scenario: Delete time entry from workspace
     Given call TimeEntries.feature@AddTime
     And base url https://api.clockify.me/api/v1

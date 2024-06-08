@@ -58,6 +58,3 @@ Feature: Task
     When execute method DELETE
     Then the status code should be 200
     And response should be id = {{idTask3}}
-
-
-

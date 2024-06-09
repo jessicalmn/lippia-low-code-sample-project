@@ -1,4 +1,4 @@
-@AddTimeEntriesError @All @Error
+@AddTimeEntriesError @All @Error @AddTime
 Feature: Add Time Entries Error
 
   Background:
@@ -7,7 +7,7 @@ Feature: Add Time Entries Error
     * define workspaceId = "662eb17f3c5df5418ad248a3"
     * define apikey = "MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2"
 
-  @ApiKeyInvalid @AddTime @AddTimeApiKeyInvalid
+  @ApiKeyInvalid  @AddTimeApiKeyInvalid
   Scenario: Add a new time entry - Invalid Api Key
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
@@ -17,7 +17,7 @@ Feature: Add Time Entries Error
     Then the status code should be 401
     And response should be message = "Api key does not exist"
 
-  @WorkspaceInvalid @AddTime @AddTimeWorkspaceInvalid
+  @WorkspaceInvalid @AddTimeWorkspaceInvalid
   Scenario: Add a new time entry  - Workspace Invalid
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/112eb17f3c5df5418ad248a3/time-entries
@@ -27,7 +27,7 @@ Feature: Add Time Entries Error
     Then the status code should be 403
     And response should be message = "Access Denied"
 
-  @ProjectInvalid @AddTime @AddTimeProjectInvalid
+  @ProjectInvalid  @AddTimeProjectInvalid
   Scenario: Add a new time entry - Project Invalid
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
@@ -36,7 +36,7 @@ Feature: Add Time Entries Error
     When execute method POST
     Then the status code should be 400
 
-  @TaskIdInvalid @AddTime @AddTimeTaskIdInvalid
+  @TaskIdInvalid  @AddTimeTaskIdInvalid
   Scenario: Add a new time entry - Task Id Invalid
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
@@ -46,7 +46,7 @@ Feature: Add Time Entries Error
     Then the status code should be 400
     And response should be message = "Task doesn't belong to Project"
 
-  @BadRequest @AddTime @AddTimeBadRequest
+  @BadRequest  @AddTimeBadRequest
   Scenario: Add a new time entry - Bad Request
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries
@@ -55,7 +55,7 @@ Feature: Add Time Entries Error
     Then the status code should be 400
     And response should be message contains "Required request body is missing"
 
-  @EndDateInvalid @AddTime @EndDateProjectInvalid
+  @EndDateInvalid  @EndDateProjectInvalid
   Scenario: Add a new time entry - Date Invalid
     Given base url https://api.clockify.me/api/v1
     And endpoint /workspaces/{{workspaceId}}/time-entries

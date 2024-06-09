@@ -1,4 +1,4 @@
-@GetTimeEntriesError @All @Error GetTimeEntries
+@GetTimeEntriesError @All @Error @GetTimeEntries
 Feature: Get Time Entries Error
 
   Background:
@@ -7,7 +7,7 @@ Feature: Get Time Entries Error
     * define workspaceId = "662eb17f3c5df5418ad248a3"
     * define apikey = "MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2"
 
-  @ApiKeyInvalid @GetTimeEntries @GetTimeEntriesApiKeyInvalid
+  @ApiKeyInvalid @GetTimeEntriesApiKeyInvalid
   Scenario: Get a specific time entry on workspace - Invalid Api Key
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -17,7 +17,7 @@ Feature: Get Time Entries Error
     Then the status code should be 401
     And response should be message = "Api key does not exist"
 
-   @WorkspaceInvalid @GetTimeEntries @GetTimeEntriesWorkspaceInvalid
+   @WorkspaceInvalid  @GetTimeEntriesWorkspaceInvalid
    Scenario: Get a specific time entry on workspace - Workspace Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -27,7 +27,7 @@ Feature: Get Time Entries Error
     Then the status code should be 403
      And response should be message = "Access Denied"
 
-  @IdTimeInvalid @GetTimeEntries @GetTimeIdTimeInvalid
+  @IdTimeInvalid  @GetTimeIdTimeInvalid
   Scenario: Get a specific time entry on workspace - Id Time Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1

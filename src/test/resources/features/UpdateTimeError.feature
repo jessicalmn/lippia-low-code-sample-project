@@ -1,4 +1,4 @@
-@UpdateEntriesError @All @Error
+@UpdateEntriesError @All @Error @UpdateTime
 Feature: Update time entry on workspace Error
 
   Background:
@@ -10,7 +10,7 @@ Feature: Update time entry on workspace Error
     * define apikey = "MGE3ZGVmNWItYTRmYS00MGI5LThhNjgtNzE2NTEzOTQzMWI2"
 
 
-  @ApiKeyInvalid @UpdateTime @UpdateTimeApiKeyInvalid
+  @ApiKeyInvalid  @UpdateTimeApiKeyInvalid
   Scenario: Update time entry on workspace - Invalid Api Key
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -21,7 +21,7 @@ Feature: Update time entry on workspace Error
     Then the status code should be 401
     And response should be message = "Api key does not exist"
 
-  @WorkspaceInvalid @UpdateTime @UpdateTimeWorkspaceInvalid
+  @WorkspaceInvalid  @UpdateTimeWorkspaceInvalid
   Scenario: Update time entry on workspace - Workspace Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -33,7 +33,7 @@ Feature: Update time entry on workspace Error
     And response should be message = "Access Denied"
 
 
-  @ProjectInvalid @UpdateTime @UpdateTimeProjectInvalid
+  @ProjectInvalid  @UpdateTimeProjectInvalid
   Scenario: Update time entry on workspace - Project Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -44,7 +44,7 @@ Feature: Update time entry on workspace Error
     Then the status code should be 400
 
 
-  @TaskIdInvalid @UpdateTime @UpdateTimeTaskIdInvalid
+  @TaskIdInvalid @UpdateTimeTaskIdInvalid
   Scenario:  Update time entry on workspace - Task Id Invalid
 
     Given call TimeEntries.feature@AddTime
@@ -55,7 +55,7 @@ Feature: Update time entry on workspace Error
     When execute method PUT
     Then the status code should be 400
 
-  @BadRequest @UpdateTime @UpdateTimeBadRequest
+  @BadRequest @UpdateTimeBadRequest
   Scenario: Update time entry on workspace - Bad Request
     Given call TimeEntries.feature@AddTime
     And base url https://api.clockify.me/api/v1

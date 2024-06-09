@@ -1,4 +1,4 @@
-@DeleteTimeError @All @Error
+@DeleteTimeError @All @Error @DeleteTime
 Feature: Update time entry on workspace Error
 
   Background:
@@ -8,7 +8,7 @@ Feature: Update time entry on workspace Error
     * define taskId = "666393a82cba6f5957b56a8a"
 
 
-  @ApiKeyInvalid @DeleteTime @DeleteTimeApiKeyInvalid
+  @ApiKeyInvalid  @DeleteTimeApiKeyInvalid
   Scenario: Delete time entry from workspace
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -20,7 +20,7 @@ Feature: Update time entry on workspace Error
 
 
 
-  @WorkspaceInvalid @DeleteTime @DeleteTimeWorkspaceInvalid
+  @WorkspaceInvalid  @DeleteTimeWorkspaceInvalid
   Scenario: Delete time entry from workspace - Workspace Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -31,7 +31,7 @@ Feature: Update time entry on workspace Error
     And response should be message = "Access Denied"
 
 
-  @TaskIdInvalid @DeleteTime @DeleteTimeTaskIdInvalid
+  @TaskIdInvalid  @DeleteTimeTaskIdInvalid
   Scenario:  Update time entry on workspace - Task Id Invalid
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
@@ -41,7 +41,7 @@ Feature: Update time entry on workspace Error
     Then the status code should be 400
     And response should be message = "Time entry doesn't belong to Workspace"
 
-  @BadRequest @DeleteTime @DeleteTimeBadRequest
+  @BadRequest  @DeleteTimeBadRequest
   Scenario: Update time entry on workspace - Bad Request
     Given call TimeEntries.feature@AddTimeEmpty
     And base url https://api.clockify.me/api/v1
